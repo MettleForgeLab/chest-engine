@@ -1,0 +1,56 @@
+manifest_version: 1
+repo:
+  name: chest-engine
+  layer: runtime-orchestrator
+  semver: true
+  release_channel: medium
+
+interfaces:
+  exports:
+    - id: api.replay_run
+      version: 1
+      path: docs/REPLAY_ENDPOINT.md
+    - id: api.version
+      version: 1
+      path: docs/VERSION_ENDPOINT.md
+    - id: docs.commit_record
+      version: 1
+      path: docs/COMMIT_RECORD.md
+    - id: schemas.commit_record
+      version: 1
+      path: schemas/commit_record.schema.json
+  consumes:
+    - id: schemas.commit_record
+      constraint: ">=1 <2"
+
+deps:
+  upstream:
+    - repo: laforge-model-serving
+      ref: "v0.1.0"
+    - repo: forgeos-mechanisms
+      ref: "v1.0.0"
+    - repo: forge-domains
+      ref: "v0.1.0"
+  governance:
+    - repo: ForgeEcosystem
+      ref: "v1.0.0"
+    - repo: ARIA-Regulation-Layer
+      ref: "v1.0.0"
+
+determinism:
+  required: true
+  profile: control-plane
+  checks:
+    - event_membrane
+    - config_freeze
+    - seed_governance
+    - routing_determinism
+    - commit_write_once
+    - replay_test
+    - no_concurrent_mutation
+    - persistence_quarantine
+
+ci:
+  github_actions:
+    workflow: .github/workflows/stack-integrity.yml
+    mode: strict

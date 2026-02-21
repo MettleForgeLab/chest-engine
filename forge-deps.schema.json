@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mettleforgelab.org/schemas/forge-deps.schema.json",
+  "title": "Forge Cross-Repo Dependency Manifest",
+  "type": "object",
+  "required": ["manifest_version", "repo", "interfaces", "deps"],
+  "properties": {
+    "manifest_version": { "type": "integer", "minimum": 1 },
+    "repo": {
+      "type": "object",
+      "required": ["name", "layer"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "substrate",
+            "model-serving",
+            "mechanisms",
+            "domains",
+            "runtime-orchestrator",
+            "ui",
+            "ops"
+          ]
+        },
+        "semver": { "type": "boolean" },
+        "release_channel": {
+          "type": "string",
+          "enum": ["slow", "medium", "fast"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "interfaces": {
+      "type": "object",
+      "required": ["exports", "consumes"],
+      "properties": {
+        "exports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "version", "path"],
+            "properties": {
+              "id": { "type": "string" },
+              "version": { "type": "integer", "minimum": 1 },
+              "path": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "consumes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "constraint"],
+            "properties": {
+              "id": { "type": "string" },
+              "constraint": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "deps": {
+      "type": "object",
+      "required": ["upstream"],
+      "properties": {
+        "upstream": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["repo", "ref"],
+            "properties": {
+              "repo": { "type": "string" },
+              "ref": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "governance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["repo", "ref"],
+            "properties": {
+              "repo": { "type": "string" },
+              "ref": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "determinism": {
+      "type": "object",
+      "properties": {
+        "required": { "type": "boolean" },
+        "profile": {
+          "type": "string",
+          "enum": ["control-plane", "content", "ui", "ops", "none"]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "event_membrane",
+              "config_freeze",
+              "seed_governance",
+              "routing_determinism",
+              "commit_write_once",
+              "replay_test",
+              "persistence_quarantine",
+              "no_concurrent_mutation"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ci": {
+      "type": "object",
+      "properties": {
+        "github_actions": {
+          "type": "object",
+          "properties": {
+            "workflow": { "type": "string" },
+            "mode": { "type": "string", "enum": ["strict", "warn"] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

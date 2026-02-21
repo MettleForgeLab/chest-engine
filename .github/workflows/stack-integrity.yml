@@ -1,0 +1,23 @@
+name: stack-integrity (chest-engine)
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pyyaml jsonschema
+
+      - name: Validate forge-deps.yaml
+        run: |
+          python scripts/validate_forge_deps.py --manifest forge-deps.yaml --schema forge-deps.schema.json
+
+      - name: Determinism checks
+        run: bash scripts/determinism_check.sh

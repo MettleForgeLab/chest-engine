@@ -1,0 +1,34 @@
+chest-engine/
+  README.md
+  forge-deps.yaml
+  forge-deps.schema.json
+
+  CONTRIBUTING.md
+  RELEASE.md
+  SECURITY.md
+
+  docs/
+    EVENT_MEMBRANE.md
+    COMMIT_RECORD.md
+    REPLAY_ENDPOINT.md
+    VERSION_ENDPOINT.md
+    API.md
+
+  schemas/
+    commit_record.schema.json
+
+  requirements-dev.txt
+
+  src/
+    chest_engine/
+      __init__.py
+      main.py
+
+  scripts/
+    validate_forge_deps.py
+    determinism_check.sh
+    replay_harness.sh
+
+  .github/
+    workflows/
+      stack-integrity.yml

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deterministic Commit Record (Control Plane)",
+  "type": "object",
+  "required": [
+    "model_ids",
+    "model_build_id",
+    "config_hash",
+    "param_block_hash",
+    "seed",
+    "routing_decision",
+    "gating_params",
+    "telemetry_sources",
+    "tolerance",
+    "determinism_profile"
+  ],
+  "properties": {
+    "event_id": { "type": "string" },
+    "model_ids": { "type": "object" },
+    "model_build_id": { "type": "object" },
+    "config_hash": { "type": "string" },
+    "param_block_hash": { "type": "string" },
+    "seed": { "type": ["integer", "string"] },
+    "routing_decision": { "type": "object" },
+    "gating_params": { "type": "object" },
+    "telemetry_sources": { "type": "array" },
+    "tolerance": { "type": "object" },
+    "bundle_context": { "type": "object" },
+    "role_context": { "type": "array" },
+    "domain_context": { "type": "array" },
+    "determinism_profile": { "type": "string" }
+  },
+  "additionalProperties": true
+}
