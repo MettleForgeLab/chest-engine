@@ -20,7 +20,7 @@ Chest MUST NOT:
 
 - redefine invariants (ForgeEcosystem)
 - redefine switching semantics (ConditionalBoundedness)
-- redefine scalar regulation math (ARIA-Regulation-Layer)
+- redefine scalar regulation math (ARIA)
 - mutate control parameters after decode start
 - use persistence as readiness/gain input
 - read other model internal scalar state
