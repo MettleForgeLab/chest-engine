@@ -32,7 +32,7 @@ deps:
     - repo: forge-domains
       ref: "v0.1.0"
   governance:
-    - repo: ForgeEcosystem
+    - repo: forge-governance-architecture-specification
       ref: "v1.0.0"
     - repo: bounded-event-regulation-specification
       ref: "v1.0.0"
